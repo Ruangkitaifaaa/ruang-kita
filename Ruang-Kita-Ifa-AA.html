@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ruang Kita — Ifa &amp; AA</title>
+<style>
+:root{--sage:#8fae9a;--sage-dark:#527761;--pink:#f3dce3;--pink-dark:#d9a6b7;--cream:#fffaf3;--white:#fff;--text:#514b49;--muted:#8b817d;--line:#e9e0da;--shadow:0 12px 30px rgba(82,119,97,.10)}
+*{box-sizing:border-box}
+body{margin:0;background:linear-gradient(135deg,var(--cream),#f9edf0 55%,#eaf2eb);color:var(--text);font-family:system-ui,-apple-system,"Segoe UI",sans-serif;line-height:1.6}
+button,input,select,textarea{font:inherit}
+button{cursor:pointer}
+.hidden{display:none!important}
+.page{min-height:100vh;padding:22px 14px 95px;display:flex;justify-content:center;align-items:flex-start}
+.shell{width:100%;max-width:850px}
+.hero,.panel,.card,.welcome{background:rgba(255,255,255,.9);border:1px solid rgba(255,255,255,.95);border-radius:24px;box-shadow:var(--shadow)}
+.hero{padding:30px 22px;text-align:center;margin:auto}
+.label{font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--sage-dark);font-weight:800}
+h1,h2,h3{line-height:1.25;color:var(--sage-dark);margin-top:0}
+h1{font-family:Georgia,serif;font-size:clamp(38px,8vw,58px);margin:12px 0 4px}
+h2{font-family:Georgia,serif}
+.subtitle{color:var(--muted);font-size:14px}
+.welcome{padding:18px;margin:16px 0}
+.letter{background:#fbf5ee;border-radius:20px;text-align:left;padding:22px;line-height:1.9;margin-top:22px;font-size:14px}
+.button{border:0;border-radius:16px;padding:12px 18px;background:linear-gradient(135deg,var(--sage),var(--sage-dark));color:#fff;font-weight:700;box-shadow:0 5px 14px rgba(82,119,97,.18);transition:.2s}
+.button:hover{transform:translateY(-1px)}
+.button.secondary{background:#f3dce3;color:#694f58;box-shadow:none}
+.button.ghost{background:#fff;color:var(--sage-dark);border:1px solid var(--line);box-shadow:none}
+.button.danger{background:#a85661}
+.button-row{display:flex;gap:9px;flex-wrap:wrap;margin-top:14px}
+.button-row>*{flex:1}
+.dashboard-header{text-align:center;padding:14px 8px 8px}
+.dashboard-header h1{font-size:clamp(32px,7vw,44px)}
+.menu-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px;margin:18px 0}
+.menu-card{padding:20px 17px;min-height:155px;text-align:left;border-radius:22px;background:rgba(255,255,255,.9);border:1px solid var(--line);box-shadow:var(--shadow);color:var(--text);transition:.2s}
+.menu-card:hover{transform:translateY(-3px);border-color:var(--pink-dark)}
+.menu-card .icon{font-size:29px}.menu-card h3{margin:10px 0 5px}.menu-card p{font-size:12px;color:var(--muted);margin:0}
+.anniversary{padding:19px;text-align:center;background:var(--pink);border-radius:20px;line-height:1.8;margin:20px 0}
+.panel{padding:22px;margin:12px 0}
+.panel h2{margin-bottom:6px}
+.muted{color:var(--muted);font-size:13px}
+label{display:block;font-size:13px;font-weight:700;color:var(--sage-dark);margin:12px 0 5px}
+input,select,textarea{width:100%;padding:12px 13px;border:1px solid var(--line);border-radius:13px;background:#fffdfb;color:var(--text);outline:none}
+input:focus,select:focus,textarea:focus{border-color:var(--sage);box-shadow:0 0 0 3px rgba(143,174,154,.16)}
+textarea{min-height:90px;resize:vertical}
+.form-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 12px}
+.stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin:16px 0}
+.stat{background:#fff;border:1px solid var(--line);border-radius:17px;padding:13px 11px;min-width:0}
+.stat span{display:block;color:var(--muted);font-size:11px}.stat strong{display:block;color:var(--sage-dark);font-size:clamp(13px,3vw,18px);overflow-wrap:anywhere;margin-top:4px}
+.list{display:grid;gap:10px;margin-top:12px}
+.record{background:#fff;border:1px solid var(--line);border-radius:16px;padding:14px}
+.record-top{display:flex;justify-content:space-between;gap:12px;align-items:flex-start}
+.record strong{color:var(--sage-dark)}.record p{margin:5px 0 0;font-size:13px}
+.small-button{border:0;background:#f7e9ec;color:#7a4d5a;border-radius:10px;padding:6px 9px;font-size:12px}
+.empty{padding:18px;text-align:center;background:#fff;border:1px dashed var(--line);border-radius:16px;color:var(--muted);font-size:13px}
+.zikr-count{font-size:58px;font-weight:800;color:var(--sage-dark);text-align:center;line-height:1.2;margin:18px}
+.zikr-name{text-align:center;font-size:20px;font-weight:700}
+.bottom-nav{position:fixed;bottom:0;left:0;right:0;z-index:10;background:rgba(255,250,243,.96);backdrop-filter:blur(12px);border-top:1px solid var(--line);padding:8px max(8px,env(safe-area-inset-left)) calc(8px + env(safe-area-inset-bottom));display:flex;justify-content:center;gap:4px}
+.bottom-nav button{border:0;background:transparent;color:var(--muted);font-size:11px;display:flex;flex-direction:column;align-items:center;gap:2px;padding:6px 10px;border-radius:12px;min-width:0;flex:1;max-width:130px}
+.bottom-nav button span{font-size:20px}.bottom-nav button.active{background:#e6efe7;color:var(--sage-dark);font-weight:800}
+.notice{font-size:12px;color:var(--muted);background:#f8f1e9;padding:12px;border-radius:12px;margin-top:14px}
+.floating-heart{position:fixed;bottom:-30px;z-index:20;pointer-events:none;animation:floatHeart 6s ease-in forwards}
+@keyframes floatHeart{0%{transform:translateY(0);opacity:0}15%{opacity:.65}100%{transform:translateY(-110vh) rotate(25deg);opacity:0}}
+@media(max-width:520px){.page{padding:12px 11px 92px}.hero{padding:25px 17px}.letter{padding:17px}.menu-grid{gap:10px}.menu-card{padding:16px 13px;min-height:145px}.panel{padding:17px}.form-grid{grid-template-columns:1fr}.stats{gap:6px}.stat{padding:10px 8px}.bottom-nav button{padding:6px 3px;font-size:10px}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<main class="page">
+<div class="shell">
+<section id="opening" class="hero">
+<div style="font-size:28px">🌿 🤍 🌸</div>
+<div class="label">A little home for two hearts</div>
+<h1>Ruang Kita</h1>
+<div class="subtitle">Ifa &amp; AA · Sejak 29 Oktober 2023</div>
+<div class="welcome" style="text-align:center">
+<div style="font-size:28px">🌷 🤍 🌷</div>
+<h2 id="greeting">Assalamu'alaikum, Sayang!</h2>
+<p id="todayDate" class="muted"></p>
+<p><em>Di antara banyak tempat untuk pulang, semoga kita selalu menjadi rumah bagi satu sama lain. 🤍</em></p>
+<div id="anniversaryCountdown" style="color:var(--sage-dark);font-weight:800"></div>
+</div>
+<div class="letter">
+<h2 style="text-align:center">Untuk AA, teman hidupku 🤍</h2>
+Tiga tahun kita berjalan bersama. Masih belajar memahami, masih belajar mengalah, dan masih belajar bahwa menentukan mau makan apa ternyata salah satu ujian rumah tangga terbesar. 😂
+<br><br>Kita mungkin belum punya semuanya dan belum selalu sepemikiran. Tapi semoga kita tidak pernah berhenti belajar, berdoa, memperbaiki diri, dan saling menggenggam.
+<br><br>Mari kita rapikan rezeki, menjaga ibadah, menyimpan cerita, dan membangun masa depan sedikit demi sedikit.
+<br><br>Semoga rumah tangga kita selalu punya tempat untuk pulang, tempat untuk bercerita, dan tempat untuk bertumbuh bersama.
+<br><br><strong style="color:#9b6575">Selamat anniversary ke-3, AA. ❤️</strong>
+<br><br>Dari istrimu, Ifa. Yang sayang kamu, meskipun kadang bikin kamu geleng-geleng kepala. WKWKWK 🤭
+</div>
+<button class="button" style="margin-top:20px;width:100%" onclick="enterApp()">Buka Ruang Kita ❤️</button>
+<div class="muted" style="margin-top:18px">Bismillah, semoga Allah selalu menjaga kita. 🤲</div>
+</section>
+
+<section id="app" class="hidden">
+<header class="dashboard-header">
+<div class="label">OUR LITTLE HOME</div><h1>Ruang Kita 🏡</h1><p class="muted">Pelan-pelan, kita bangun semuanya bersama.</p>
+</header>
+<div id="homeView">
+<div class="welcome"><strong>Assalamu'alaikum, Ifa &amp; AA 🤍</strong><p style="margin-bottom:0">Semoga rezeki kita berkah, ibadah kita terjaga, dan cinta kita terus tumbuh.</p></div>
+<div class="menu-grid">
+<button class="menu-card" onclick="showView('finance')"><div class="icon">💰</div><h3>Keuangan Kita</h3><p>Pemasukan, pengeluaran, dan tabungan bersama.</p></button>
+<button class="menu-card" onclick="showView('prayer')"><div class="icon">🕌</div><h3>Ibadah Kita</h3><p>Catatan salat wajib dan waktu pelaksanaannya.</p></button>
+<button class="menu-card" onclick="showView('dhikr')"><div class="icon">🤲</div><h3>Zikir &amp; Doa</h3><p>Hitung zikir dan simpan doa keluarga.</p></button>
+<button class="menu-card" onclick="showView('memory')"><div class="icon">📖</div><h3>Kenangan Kita</h3><p>Rasa syukur, cerita, dan target masa depan.</p></button>
+</div>
+<div class="anniversary"><strong>🤍 Tiga tahun, satu perjalanan 🤍</strong><br>Semoga kita bukan hanya tumbuh bersama, tetapi juga semakin dekat kepada Allah.</div>
+</div>
+
+<section id="financeView" class="hidden">
+<div class="panel"><h2>💰 Keuangan Kita</h2><p class="muted">Catatan rezeki kita, sedikit demi sedikit.</p>
+<form id="financeForm">
+<div class="form-grid">
+<div><label for="transactionType">Jenis transaksi</label><select id="transactionType" required><option value="pemasukan">Pemasukan</option><option value="pengeluaran">Pengeluaran</option></select></div>
+<div><label for="ownershipType">Uang siapa?</label><select id="ownershipType" required><option value="bersama">Keuangan bersama</option><option value="ifa">Uang Ifa</option><option value="aa">Uang AA</option></select></div>
+<div><label for="amount">Jumlah (Rp)</label><input id="amount" type="number" min="1" step="1" placeholder="Contoh: 50000" required></div>
+<div><label for="category">Kategori</label><select id="category" required><option>Gaji</option><option>Usaha</option><option>Makanan</option><option>Belanja rumah</option><option>Transportasi</option><option>Tagihan</option><option>Tabungan</option><option>Kesehatan</option><option>Lainnya</option></select></div>
+<div><label for="transactionDate">Tanggal</label><input id="transactionDate" type="date" required></div>
+<div><label for="description">Keterangan</label><input id="description" type="text" placeholder="Contoh: belanja dapur"></div>
+</div>
+<button class="button" type="submit" style="width:100%;margin-top:14px">Simpan Transaksi 💚</button><p id="financeMessage" role="status" class="muted"></p>
+</form></div>
+<div class="stats">
+<div class="stat"><span>Pemasukan</span><strong id="totalIncome">Rp0</strong></div>
+<div class="stat"><span>Pengeluaran</span><strong id="totalExpense">Rp0</strong></div>
+<div class="stat"><span>Selisih</span><strong id="balance">Rp0</strong></div>
+</div>
+<div class="panel"><h3>Riwayat Transaksi</h3><div id="transactionHistory" class="list"></div></div>
+<div class="notice">Data saat ini tersimpan di browser/perangkat ini. Untuk melihat data yang sama di HP Ifa dan HP AA, aplikasi perlu disambungkan ke basis data online bersama.</div>
+<button class="button ghost" onclick="showView('home')">← Kembali ke beranda</button>
+</section>
+
+<section id="prayerView" class="hidden">
+<div class="panel"><h2>🕌 Ibadah Kita</h2><p class="muted">Catat salat wajib dan waktu pelaksanaannya.</p>
+<form id="prayerForm">
+<div class="form-grid">
+<div><label for="prayerOwner">Siapa yang salat?</label><select id="prayerOwner"><option value="Ifa">Ifa</option><option value="AA">AA</option></select></div>
+<div><label for="prayerName">Salat</label><select id="prayerName"><option>Subuh</option><option>Dzuhur</option><option>Ashar</option><option>Maghrib</option><option>Isya</option></select></div>
+<div><label for="prayerDate">Tanggal</label><input id="prayerDate" type="date" required></div>
+<div><label for="prayerTime">Jam pelaksanaan</label><input id="prayerTime" type="time" required></div>
+<div><label for="prayerStatus">Pelaksanaan</label><select id="prayerStatus"><option value="tepat waktu">Tepat waktu</option><option value="terlambat">Terlambat</option><option value="qadha">Qadha</option></select></div>
+</div>
+<button class="button" type="submit" style="width:100%;margin-top:14px">Simpan Catatan Salat 🤍</button><p id="prayerMessage" class="muted" role="status"></p>
+</form></div>
+<div class="panel"><h3>Riwayat Ibadah</h3><div id="prayerHistory" class="list"></div></div>
+<button class="button ghost" onclick="showView('home')">← Kembali ke beranda</button>
+</section>
+
+<section id="dhikrView" class="hidden">
+<div class="panel"><h2>🤲 Zikir &amp; Doa</h2><p class="muted">Mulai sedikit demi sedikit, semoga hati lebih tenang.</p>
+<label for="dhikrSelect">Pilih zikir</label><select id="dhikrSelect"><option value="Subhanallah">Subhanallah</option><option value="Alhamdulillah">Alhamdulillah</option><option value="Allahu Akbar">Allahu Akbar</option><option value="Astaghfirullah">Astaghfirullah</option><option value="Shalawat">Shalawat</option></select>
+<div class="zikr-name" id="dhikrName">Subhanallah</div><div class="zikr-count" id="dhikrCount">0</div>
+<div class="button-row"><button class="button" onclick="incrementDhikr()">+1 Tasbih</button><button class="button secondary" onclick="resetDhikr()">Ulangi hitungan</button></div>
+<div class="notice">Hitungan tersimpan di perangkat ini. Pilihan zikir dapat diganti kapan saja.</div></div>
+<div class="panel"><h3>Doa untuk keluarga kita 🤍</h3><form id="duaForm"><label for="duaText">Catatan doa</label><textarea id="duaText" placeholder="Tuliskan doa atau harapan kita..." required></textarea><button class="button" type="submit" style="width:100%">Simpan Doa</button></form><div id="duaHistory" class="list"></div></div>
+<button class="button ghost" onclick="showView('home')">← Kembali ke beranda</button>
+</section>
+
+<section id="memoryView" class="hidden">
+<div class="panel"><h2>📖 Kenangan Kita</h2><p class="muted">Simpan hal kecil yang ingin kita ingat, syukuri, dan perjuangkan.</p>
+<form id="memoryForm"><label for="memoryType">Jenis catatan</label><select id="memoryType"><option value="Kenangan">Kenangan</option><option value="Rasa syukur">Rasa syukur</option><option value="Target masa depan">Target masa depan</option></select><label for="memoryDate">Tanggal</label><input id="memoryDate" type="date" required><label for="memoryText">Cerita kita</label><textarea id="memoryText" placeholder="Hari ini aku bersyukur karena..." required></textarea><button class="button" type="submit" style="width:100%;margin-top:12px">Simpan Kenangan 💗</button></form></div>
+<div class="panel"><h3>Album cerita kita</h3><div id="memoryHistory" class="list"></div></div>
+<button class="button ghost" onclick="showView('home')">← Kembali ke beranda</button>
+</section>
+</section>
+</div>
+</main>
+<nav id="bottomNav" class="bottom-nav hidden" aria-label="Navigasi utama">
+<button data-view="home" onclick="showView('home')" class="active"><span>🏡</span>Beranda</button>
+<button data-view="finance" onclick="showView('finance')"><span>💰</span>Keuangan</button>
+<button data-view="prayer" onclick="showView('prayer')"><span>🕌</span>Ibadah</button>
+<button data-view="dhikr" onclick="showView('dhikr')"><span>🤲</span>Zikir</button>
+<button data-view="memory" onclick="showView('memory')"><span>📖</span>Kenangan</button>
+</nav>
+<script>
+const $ = id => document.getElementById(id);
+const today = () => new Date().toLocaleDateString('sv-SE');
+const read = (key, fallback=[]) => { try { const x=JSON.parse(localStorage.getItem(key)); return x ?? fallback; } catch { return fallback; } };
+const write = (key, value) => localStorage.setItem(key, JSON.stringify(value));
+let financeRecords = read('ruangKitaFinance');
+let prayerRecords = read('ruangKitaPrayer');
+let memories = read('ruangKitaMemories');
+let duas = read('ruangKitaDuas');
+let dhikrCounts = read('ruangKitaDhikrCounts', {});
+let dhikrCurrent = $('dhikrSelect').value;
+const rupiah = amount => new Intl.NumberFormat('id-ID',{style:'currency',currency:'IDR',maximumFractionDigits:0}).format(amount);
+function enterApp(){ $('opening').classList.add('hidden'); $('app').classList.remove('hidden'); $('bottomNav').classList.remove('hidden'); showView('home'); window.scrollTo(0,0); }
+function showView(view){
+  ['home','finance','prayer','dhikr','memory'].forEach(v=>$(v==='home'?'homeView':v+'View').classList.toggle('hidden',v!==view));
+  document.querySelectorAll('.bottom-nav button').forEach(b=>b.classList.toggle('active',b.dataset.view===view));
+  window.scrollTo({top:0,behavior:'smooth'});
+  if(view==='finance') renderFinance();
+  if(view==='prayer') renderPrayer();
+  if(view==='memory') renderMemories();
+  if(view==='dhikr') { updateDhikr(); renderDuas(); }
+}
+function setDefaultDates(){ ['transactionDate','prayerDate','memoryDate'].forEach(id=>$(id).value=today()); $('prayerTime').value=new Date().toTimeString().slice(0,5); }
+function saveTransaction(e){
+ e.preventDefault();
+ const record={id:Date.now(),type:$('transactionType').value,ownership:$('ownershipType').value,amount:Number($('amount').value),category:$('category').value,date:$('transactionDate').value,description:$('description').value.trim()};
+ if(!Number.isFinite(record.amount)||record.amount<=0){$('financeMessage').textContent='Masukkan jumlah yang valid.';return;}
+ financeRecords.push(record); write('ruangKitaFinance',financeRecords); renderFinance();
+ $('financeMessage').textContent='Transaksi berhasil disimpan di perangkat ini ❤️'; $('financeForm').reset(); $('transactionDate').value=today();
+}
+function deleteRecord(key,id){if(!confirm('Hapus catatan ini?'))return; if(key==='ruangKitaFinance')financeRecords=financeRecords.filter(x=>x.id!==id);if(key==='ruangKitaPrayer')prayerRecords=prayerRecords.filter(x=>x.id!==id);if(key==='ruangKitaMemories')memories=memories.filter(x=>x.id!==id);if(key==='ruangKitaDuas')duas=duas.filter(x=>x.id!==id);write(key,key==='ruangKitaFinance'?financeRecords:key==='ruangKitaPrayer'?prayerRecords:key==='ruangKitaMemories'?memories:duas);renderFinance();renderPrayer();renderMemories();renderDuas();}
+function renderFinance(){
+ const income=financeRecords.filter(x=>x.type==='pemasukan').reduce((s,x)=>s+x.amount,0), expense=financeRecords.filter(x=>x.type==='pengeluaran').reduce((s,x)=>s+x.amount,0);
+ $('totalIncome').textContent=rupiah(income);$('totalExpense').textContent=rupiah(expense);$('balance').textContent=rupiah(income-expense);
+ const root=$('transactionHistory');root.replaceChildren();
+ if(!financeRecords.length){root.innerHTML='<div class="empty">Belum ada transaksi. Yuk catat pemasukan atau pengeluaran pertama kita. 🤍</div>';return;}
+ [...financeRecords].sort((a,b)=>(b.date||'').localeCompare(a.date||'')||(b.id||0)-(a.id||0)).forEach(x=>{
+ const card=document.createElement('article');card.className='record';
+ const top=document.createElement('div');top.className='record-top';
+ const title=document.createElement('strong');title.textContent=(x.type==='pemasukan'?'🟢 ':'🔴 ')+x.category;
+ const amt=document.createElement('strong');amt.textContent=(x.type==='pemasukan'?'+':'−')+rupiah(x.amount);
+ top.append(title,amt);
+ const detail=document.createElement('p');detail.textContent=`${x.date||''} · ${x.ownership==='bersama'?'Bersama':x.ownership==='ifa'?'Ifa':'AA'}`;
+ const note=document.createElement('p');note.textContent=x.description||'Tanpa keterangan';
+ const del=document.createElement('button');del.className='small-button';del.textContent='Hapus';del.onclick=()=>deleteRecord('ruangKitaFinance',x.id);
+ card.append(top,detail,note,del);root.append(card);
+ });
+}
+$('financeForm').addEventListener('submit',saveTransaction);
+$('prayerForm').addEventListener('submit',e=>{
+ e.preventDefault();const r={id:Date.now(),owner:$('prayerOwner').value,name:$('prayerName').value,date:$('prayerDate').value,time:$('prayerTime').value,status:$('prayerStatus').value};
+ prayerRecords.push(r);write('ruangKitaPrayer',prayerRecords);$('prayerMessage').textContent='Catatan salat berhasil disimpan 🤍';renderPrayer();
+});
+function renderPrayer(){
+ const root=$('prayerHistory');if(!root)return;root.replaceChildren();
+ if(!prayerRecords.length){root.innerHTML='<div class="empty">Belum ada catatan salat. Semoga Allah mudahkan ibadah kita. 🤍</div>';return;}
+ [...prayerRecords].sort((a,b)=>(b.date||'').localeCompare(a.date||'')||(b.time||'').localeCompare(a.time||'')).forEach(x=>{
+ const c=document.createElement('article');c.className='record';const top=document.createElement('div');top.className='record-top';const t=document.createElement('strong');t.textContent=`🕌 ${x.name} · ${x.owner}`;const tm=document.createElement('strong');tm.textContent=x.time;top.append(t,tm);const p=document.createElement('p');p.textContent=`${x.date} · ${x.status}`;const d=document.createElement('button');d.className='small-button';d.textContent='Hapus';d.onclick=()=>deleteRecord('ruangKitaPrayer',x.id);c.append(top,p,d);root.append(c);
+ });
+}
+$('dhikrSelect').addEventListener('change',()=>{dhikrCurrent=$('dhikrSelect').value;updateDhikr();});
+function updateDhikr(){$('dhikrName').textContent=dhikrCurrent;$('dhikrCount').textContent=dhikrCounts[dhikrCurrent]||0;}
+function incrementDhikr(){dhikrCounts[dhikrCurrent]=(dhikrCounts[dhikrCurrent]||0)+1;write('ruangKitaDhikrCounts',dhikrCounts);updateDhikr();}
+function resetDhikr(){if(!confirm('Ulangi hitungan zikir ini dari nol?'))return;dhikrCounts[dhikrCurrent]=0;write('ruangKitaDhikrCounts',dhikrCounts);updateDhikr();}
+$('duaForm').addEventListener('submit',e=>{e.preventDefault();duas.push({id:Date.now(),text:$('duaText').value.trim(),date:today()});write('ruangKitaDuas',duas);$('duaText').value='';renderDuas();});
+function renderDuas(){const root=$('duaHistory');if(!root)return;root.replaceChildren();if(!duas.length){root.innerHTML='<div class="empty">Belum ada catatan doa.</div>';return;}[...duas].reverse().forEach(x=>{const c=document.createElement('article');c.className='record';const p=document.createElement('p');p.textContent=x.text;const d=document.createElement('small');d.className='muted';d.textContent=x.date+' · Doa keluarga';const b=document.createElement('button');b.className='small-button';b.textContent='Hapus';b.onclick=()=>deleteRecord('ruangKitaDuas',x.id);c.append(p,d,b);root.append(c);});}
+$('memoryForm').addEventListener('submit',e=>{e.preventDefault();memories.push({id:Date.now(),type:$('memoryType').value,date:$('memoryDate').value,text:$('memoryText').value.trim()});write('ruangKitaMemories',memories);$('memoryText').value='';renderMemories();});
+function renderMemories(){const root=$('memoryHistory');if(!root)return;root.replaceChildren();if(!memories.length){root.innerHTML='<div class="empty">Belum ada cerita. Semoga hari ini ada satu hal kecil untuk disyukuri. 🌷</div>';return;}[...memories].reverse().forEach(x=>{const c=document.createElement('article');c.className='record';const t=document.createElement('strong');t.textContent='💗 '+x.type;const p=document.createElement('p');p.textContent=x.text;const d=document.createElement('small');d.className='muted';d.textContent=x.date;const b=document.createElement('button');b.className='small-button';b.textContent='Hapus';b.onclick=()=>deleteRecord('ruangKitaMemories',x.id);c.append(t,p,d,b);root.append(c);});}
+function updateCountdown(){
+ const now=new Date();now.setHours(0,0,0,0);let anniversary=new Date(now.getFullYear(),9,29);if(now>=anniversary)anniversary=new Date(now.getFullYear()+1,9,29);
+ const days=Math.round((anniversary-now)/(1000*60*60*24));$('anniversaryCountdown').textContent=days===0?'💍 Hari ini anniversary Ifa & AA! ❤️':'💍 '+days+' hari menuju anniversary Ifa & AA ❤️';
+ $('todayDate').textContent=now.toLocaleDateString('id-ID',{weekday:'long',day:'numeric',month:'long',year:'numeric'});
+}
+function createFloatingHeart(){if(document.hidden)return;const h=document.createElement('span');h.className='floating-heart';h.textContent=['♡','♥','🌸'][Math.floor(Math.random()*3)];h.style.left=Math.random()*95+'vw';h.style.fontSize=(14+Math.random()*12)+'px';h.style.color=Math.random()>.5?'#d9a6b7':'#8fae9a';document.body.append(h);h.addEventListener('animationend',()=>h.remove());}
+setDefaultDates();updateCountdown();setInterval(createFloatingHeart,2200);
+renderFinance();renderPrayer();renderMemories();renderDuas();
+</script>
+</body>
+</html>
